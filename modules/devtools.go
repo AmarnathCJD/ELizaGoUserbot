@@ -1,7 +1,10 @@
 package modules
 
 import (
+	"bytes"
 	"fmt"
+	"os"
+	"os/exec"
 
 	"github.com/amarnathcjd/gogram/telegram"
 )
@@ -9,6 +12,7 @@ import (
 func init() {
 	UB.AddMessageHandler("\\+json", Jsonify, &telegram.Filters{Outgoing: true})
 	UB.AddMessageHandler("\\+reserved", ReservedChannels, &telegram.Filters{Outgoing: true})
+	UB.AddMessageHandler("\\+sh", Shell, &telegram.Filters{Outgoing: true})
 }
 
 func Jsonify(m *telegram.NewMessage) error {
@@ -57,5 +61,43 @@ func ReservedChannels(m *telegram.NewMessage) error {
 		}
 	}
 	_, err = m.Edit(s)
+	return err
+}
+
+func Shell(m *telegram.NewMessage) error {
+	var err error
+	msg, _ := m.Edit("<code>Processing...</code>")
+	if m.Args() == "" {
+		_, err := msg.Edit("No code provided!")
+		return err
+	} else {
+		var stdout bytes.Buffer
+		var stderr bytes.Buffer
+		proc := exec.Command("bash", "-c", m.Args())
+		proc.Stdout = &stdout
+		proc.Stderr = &stderr
+		err = proc.Run()
+		var result string
+		if stdout.String() != string("") {
+			result = stdout.String()
+		} else if stderr.String() != string("") {
+			result = stderr.String()
+		} else if err != nil {
+			result = err.Error()
+		} else {
+			result = "No output"
+		}
+		if len(result) > 4096 {
+			defer os.Remove("sh.txt")
+			defer m.Delete()
+			fs, _ := os.OpenFile("sh.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+			defer fs.Close()
+			fs.WriteString(result)
+			f, _ := m.Client.UploadFile("sh.txt")
+			_, err := m.Client.SendMedia(m.ChatID(), f)
+			return err
+		}
+		_, err = msg.Edit(fmt.Sprintf("<b>BASH:</b><code>%s</code>", result))
+	}
 	return err
 }
