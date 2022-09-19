@@ -25,7 +25,7 @@ func downloadFile(m *telegram.NewMessage) error {
 		if err != nil {
 			return err
 		}
-		p := PROGRESS_GEN{StartTime: time.Now(), LastTime: time.Now()}
+		p := PROGRESS_GEN{}
 		prog := telegram.Progress{}
 		go func() {
 			for {
@@ -36,8 +36,10 @@ func downloadFile(m *telegram.NewMessage) error {
 					break
 				}
 			}
+                        p.StartProgress()
 			for {
 				time.Sleep(2 * time.Second)
+                                fmt.Println(prog.Current)
 				p.UpdateProgress(int(prog.Current))
 				_, err = m.Edit(p.GenProgressString())
 				if err != nil {
@@ -93,7 +95,7 @@ func FormatBytes(bytes int64) string {
 }
 
 func (p *PROGRESS_GEN) UpdateProgress(size int) {
-	p.CurrentSize += int64(size)
+	p.CurrentSize = int64(size)
         fmt.Println(p.CurrentSize, p.LastSize)
 	p.LastSize = p.CurrentSize
 	p.LastTime = time.Now()
