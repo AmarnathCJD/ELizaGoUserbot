@@ -31,6 +31,8 @@ func downloadFile(m *telegram.NewMessage) error {
 			for {
 				if prog.Total != 0 {
 					p.TotalSize = int64(prog.Total)
+                                        p.CurrentSize = int64(0)
+                                        p.LastSize = int64(0)
 					break
 				}
 			}
@@ -92,6 +94,7 @@ func FormatBytes(bytes int64) string {
 
 func (p *PROGRESS_GEN) UpdateProgress(size int) {
 	p.CurrentSize += int64(size)
+        fmt.Println(p.CurrentSize, p.LastSize)
 	p.LastSize = p.CurrentSize
 	p.LastTime = time.Now()
 }
