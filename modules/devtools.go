@@ -101,3 +101,8 @@ func Shell(m *telegram.NewMessage) error {
 	}
 	return err
 }
+
+func GolangCodeEvaluate(code string, variables []interface{}) (string, error) {
+	// TODO
+	return "", nil
+}

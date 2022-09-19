@@ -2,7 +2,7 @@ module main
 
 go 1.18
 
-require github.com/amarnathcjd/gogram v0.0.0-20220914121438-9ac044ad3cc2
+require github.com/amarnathcjd/gogram v0.0.0-20220919114709-9faeedaf037d
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0

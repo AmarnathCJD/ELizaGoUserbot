@@ -1,7 +1,7 @@
 github.com/PuerkitoBio/goquery v1.8.0 h1:PJTF7AmFCFKk1N6V6jmKfrNH9tV5pNE6lZMkG0gta/U=
 github.com/PuerkitoBio/goquery v1.8.0/go.mod h1:ypIiRMtY7COPGk+I/YbZLbxsxn9g5ejnI2HSMtkjZvI=
-github.com/amarnathcjd/gogram v0.0.0-20220914121438-9ac044ad3cc2 h1:1ycc+F8yr4IFCYntkTDPKWz5Cge4+IoNEqnLLvKT714=
-github.com/amarnathcjd/gogram v0.0.0-20220914121438-9ac044ad3cc2/go.mod h1:nF1Hix+ULgDk9PPZTJ06aa+lhSj/u6H78dFmmeVTN3Y=
+github.com/amarnathcjd/gogram v0.0.0-20220919114709-9faeedaf037d h1:8Htsl9LhhaKEvuV73fkvcxolhqNqEbzaXjUZsRO/Wtw=
+github.com/amarnathcjd/gogram v0.0.0-20220919114709-9faeedaf037d/go.mod h1:nF1Hix+ULgDk9PPZTJ06aa+lhSj/u6H78dFmmeVTN3Y=
 github.com/andybalholm/cascadia v1.3.1 h1:nhxRkql1kdYCc8Snf7D5/D3spOX+dBgjA6u8x004T2c=
 github.com/andybalholm/cascadia v1.3.1/go.mod h1:R4bJ1UQfqADjvDa4P6HZHLh/3OxWWEqc0Sk8XGwHqvA=
 github.com/joho/godotenv v1.4.0 h1:3l4+N6zfMWnkbPEXKng2o2/MR5mSwTrBih4ZEkkz1lg=
