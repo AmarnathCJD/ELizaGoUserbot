@@ -27,7 +27,7 @@ var (
 )
 
 func init() {
-	UB.AddMessageHandler(telegram.OnNewMessage, NewPrivateMsg, &telegram.Filters{Incoming: true})
+	// UB.AddMessageHandler(telegram.OnNewMessage, NewPrivateMsg, &telegram.Filters{Incoming: true})
 	UB.AddMessageHandler("^\\+approve", ApproveUser, &telegram.Filters{Outgoing: true})
 	UB.AddMessageHandler("^\\+disapprove", DisapproveUser, &telegram.Filters{Outgoing: true})
 	UB.AddMessageHandler("^\\+block", BlockUser, &telegram.Filters{Outgoing: true})
