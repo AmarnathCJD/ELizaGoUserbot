@@ -12,7 +12,7 @@ var (
 		"Start",
 		"Animation",
 		"Admin", "Devtools",
-		"Stickertools",
+		"StickerTools", "PMPermit", "ProfilePic", "Misc", "FileTools", "Afk",
 	}
 
 	b = telegram.Button{}

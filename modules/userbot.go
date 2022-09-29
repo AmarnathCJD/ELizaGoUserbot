@@ -16,6 +16,7 @@ var (
 	startTime  int64
 	WorkDir, _ = os.Getwd()
 	BotUName   string
+	aliveName  string
 )
 
 func UserbotClient() (*telegram.Client, *telegram.Client) {
@@ -25,19 +26,16 @@ func UserbotClient() (*telegram.Client, *telegram.Client) {
 	startTime = time.Now().Unix()
 	API_ID := os.Getenv("API_ID")
 	API_HASH := os.Getenv("API_HASH")
-	DC_ID := os.Getenv("DC_ID")
 	BOT_TOKEN := os.Getenv("BOT_TOKEN")
 	b, _ := telegram.TelegramClient(telegram.ClientConfig{
 		AppID:         parseINT(API_ID),
 		AppHash:       API_HASH,
-		DataCenter:    parseINT(DC_ID),
 		StringSession: STRING_SESSION,
 		ParseMode:     "HTML",
 	})
 	bot, _ := telegram.TelegramClient(telegram.ClientConfig{
 		AppID:       parseINT(API_ID),
 		AppHash:     API_HASH,
-		DataCenter:  parseINT(DC_ID),
 		ParseMode:   "HTML",
 		SessionFile: filepath.Join(WorkDir, "bot.session"),
 	})
@@ -47,20 +45,22 @@ func UserbotClient() (*telegram.Client, *telegram.Client) {
 	me, err := b.GetMe()
 	bt, _ := bot.GetMe()
 	BotUName = bt.Username
+	aliveName = me.FirstName + " " + me.LastName
 	b.Cache.UpdateUser(me)
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("Logged in", fmt.Sprintf("as @%s", me.Username))
 	fmt.Println("Bot logged in", fmt.Sprintf("as @%s", bt.Username))
-	fmt.Println("Userbot started!")
+	fmt.Println("STARTUP TIME:", time.Now().Unix()-startTime, "seconds")
+	fmt.Println("ElizaUserbot - @ElizaUserbot")
 	return b, bot
 }
 
 func parseINT(s string) int {
 	i, err := strconv.Atoi(s)
 	if err != nil {
-		panic(err)
+		return 0
 	}
 	return i
 }
