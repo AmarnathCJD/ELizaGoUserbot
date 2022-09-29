@@ -17,6 +17,7 @@ var (
 	WorkDir, _ = os.Getwd()
 	BotUName   string
 	aliveName  string
+	MasterID   int64
 )
 
 func UserbotClient() (*telegram.Client, *telegram.Client) {
@@ -27,12 +28,15 @@ func UserbotClient() (*telegram.Client, *telegram.Client) {
 	API_ID := os.Getenv("API_ID")
 	API_HASH := os.Getenv("API_HASH")
 	BOT_TOKEN := os.Getenv("BOT_TOKEN")
-	b, _ := telegram.TelegramClient(telegram.ClientConfig{
+	b, err := telegram.TelegramClient(telegram.ClientConfig{
 		AppID:         parseINT(API_ID),
 		AppHash:       API_HASH,
 		StringSession: STRING_SESSION,
 		ParseMode:     "HTML",
 	})
+	if err != nil {
+		panic(err)
+	}
 	bot, _ := telegram.TelegramClient(telegram.ClientConfig{
 		AppID:       parseINT(API_ID),
 		AppHash:     API_HASH,
@@ -43,6 +47,7 @@ func UserbotClient() (*telegram.Client, *telegram.Client) {
 		panic(err)
 	}
 	me, err := b.GetMe()
+	MasterID = me.ID
 	bt, _ := bot.GetMe()
 	BotUName = bt.Username
 	aliveName = me.FirstName + " " + me.LastName

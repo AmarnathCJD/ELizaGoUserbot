@@ -35,7 +35,7 @@ func init() {
 }
 
 func NewPrivateMsg(m *telegram.NewMessage) error {
-	if !m.IsPrivate() || m.Sender.Bot {
+	if !m.IsPrivate() || m.Sender.Bot || m.IsCommand() || m.SenderID() == MasterID {
 		return nil
 	}
 	for _, id := range APPROVED_IDS {
