@@ -32,6 +32,11 @@ func we(m *telegram.NewMessage) error {
      v := x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*telegram.PhotoObj)
      p = append(p, &telegram.InputMediaPhoto{ID: &telegram.InputPhotoObj{ID: v.ID, AccessHash: v.AccessHash, FileReference: v.FileReference}, TtlSeconds: 0})
  }
+ if len(p) == 0 {
+m.Edit("<code>No ProfilePhotos Found!</code>")
+ return nil
+}
+ m.delete()
  m.Client.SendAlbum(m.ChatID(), p)
  return nil
 }
