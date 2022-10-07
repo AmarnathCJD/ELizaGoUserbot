@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+        "encoding/json"
 	"strings"
 	"time"
 
@@ -24,7 +25,8 @@ func we(m *telegram.NewMessage) error {
  a := m.Args()
  p, e := m.Client.GetChatPhotos(a, 2)
  if e!= nil { return e}
- _, err := m.Client.SendAlbum(m.ChatID(), p)
+ b, _ := json.Marshal(p)
+ m.Reply(string(b))
  return err
 }
 
