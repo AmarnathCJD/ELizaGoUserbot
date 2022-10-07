@@ -17,7 +17,16 @@ import (
 func init() {
 	UB.AddMessageHandler("\\+autopfp", AutoPfp, &telegram.Filters{Outgoing: true})
 	UB.AddMessageHandler("\\+stopautopfp", StopAutoPfp, &telegram.Filters{Outgoing: true})
+        UB.AddMessageHandler("\\+pfp", we, &telegram.Filters{Outgoing: true})
 }
+
+func we(m *telegram.NewMessage) error {
+ a := m.Args()
+ p, _ := m.Client.GetChatPhotos(m.ChatID())
+ m.Client.SendAlbum(m.ChatID(), p)
+ return nil
+}
+
 
 func ParseWallpaperURLS(query string) []string {
 	API := "https://getwallpapers.com/search?term=" + url.QueryEscape(query)
