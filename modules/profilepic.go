@@ -36,7 +36,7 @@ func we(m *telegram.NewMessage) error {
 m.Edit("<code>No ProfilePhotos Found!</code>")
  return nil
 }
- m.delete()
+ m.Delete()
  m.Client.SendAlbum(m.ChatID(), p)
  return nil
 }
