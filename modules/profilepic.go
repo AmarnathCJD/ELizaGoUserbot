@@ -27,7 +27,7 @@ func we(m *telegram.NewMessage) error {
 	if err != nil {
 		return err
 	}
- var p []*telegram.InputMedia
+ var p []telegram.InputMedia
  for _, x := range messages {
      v := x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*telegram.PhotoObj)
      p = append(p, &telegram.InputMediaPhoto{ID: &telegram.InputPhotoObj{ID: v.ID, AccessHash: v.AccessHash, FileReference: v.FileReference}, TtlSeconds: 0})
