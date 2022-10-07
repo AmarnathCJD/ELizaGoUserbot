@@ -31,7 +31,7 @@ func we(m *telegram.NewMessage) error {
  for _, x := range messages {
      p = append(p, x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*telegram.PhotoObj))
  }
- fmt.Println(p)
+ m.Client.SendAlbum(m.ChatID(), p)
  return nil
 }
 
