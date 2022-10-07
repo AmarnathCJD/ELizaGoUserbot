@@ -27,9 +27,10 @@ func we(m *telegram.NewMessage) error {
 	if err != nil {
 		return err
 	}
- var p []telegram.Photo
+ var p []*telegram.InputMedia
  for _, x := range messages {
-     p = append(p, x.Action.(*telegram.MessageActionChatEditPhoto).Photo)
+     v := x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*telegram.PhotoObj)
+     p = append(p, &InputMediaPhoto{ID: &InputPhotoObj{ID: v.ID, AccessHash: v.AccessHash, FileReference: v.FileReference}, TtlSeconds: 0})
  }
  m.Client.SendAlbum(m.ChatID(), p)
  return nil
