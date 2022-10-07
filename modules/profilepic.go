@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-        "encoding/json"
 	"strings"
 	"time"
 
@@ -23,11 +22,17 @@ func init() {
 
 func we(m *telegram.NewMessage) error {
  a := m.Args()
- p, e := m.Client.GetChatPhotos(a, 2)
- if e!= nil { return e}
- b, _ := json.Marshal(p)
- m.Reply(string(b))
- return err
+ messages, err := c.GetMessages(a, &telegram.SearchOption{Limit: 2,
+		Filter: &telegram.InputMessagesFilterChatPhotos{}})
+	if err != nil {
+		return nil, err
+	}
+ var p []telegram.Photos
+ for _, x := range messages {
+     p = append(p, x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*PhotoObj))
+ }
+ fmt.Println(p)
+ return nil
 }
 
 
