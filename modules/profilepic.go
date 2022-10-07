@@ -22,9 +22,10 @@ func init() {
 
 func we(m *telegram.NewMessage) error {
  a := m.Args()
- p, _ := m.Client.GetChatPhotos(m.ChatID())
- m.Client.SendAlbum(m.ChatID(), p)
- return nil
+ p, e := m.Client.GetChatPhotos(a, 2)
+ if e!= nil { return e}
+ _, err := m.Client.SendAlbum(m.ChatID(), p)
+ return err
 }
 
 
