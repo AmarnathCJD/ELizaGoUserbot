@@ -22,14 +22,14 @@ func init() {
 
 func we(m *telegram.NewMessage) error {
  a := m.Args()
- messages, err := c.GetMessages(a, &telegram.SearchOption{Limit: 2,
+ messages, err := m.Client.GetMessages(a, &telegram.SearchOption{Limit: 2,
 		Filter: &telegram.InputMessagesFilterChatPhotos{}})
 	if err != nil {
 		return nil, err
 	}
- var p []telegram.Photos
+ var p []telegram.Photo
  for _, x := range messages {
-     p = append(p, x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*PhotoObj))
+     p = append(p, x.Action.(*telegram.MessageActionChatEditPhoto).Photo.(*telegram.PhotoObj))
  }
  fmt.Println(p)
  return nil
