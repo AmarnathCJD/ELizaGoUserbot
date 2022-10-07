@@ -22,7 +22,7 @@ func init() {
 
 func we(m *telegram.NewMessage) error {
  a := m.Args()
- messages, err := m.Client.GetMessages(a, &telegram.SearchOption{Limit: 2,
+ messages, err := m.Client.GetMessages(a, &telegram.SearchOption{Limit: 8,
 		Filter: &telegram.InputMessagesFilterChatPhotos{}})
 	if err != nil {
 		return err
