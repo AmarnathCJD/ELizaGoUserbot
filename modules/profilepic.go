@@ -25,7 +25,7 @@ func we(m *telegram.NewMessage) error {
  messages, err := m.Client.GetMessages(a, &telegram.SearchOption{Limit: 2,
 		Filter: &telegram.InputMessagesFilterChatPhotos{}})
 	if err != nil {
-		return nil, err
+		return err
 	}
  var p []telegram.Photo
  for _, x := range messages {
