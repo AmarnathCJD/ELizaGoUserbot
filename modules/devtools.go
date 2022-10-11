@@ -107,7 +107,8 @@ func Shell(m *telegram.NewMessage) error {
 			_, err := m.Client.SendMedia(m.ChatID(), f)
 			return err
 		}
-		_, err = msg.Edit(fmt.Sprintf("<b>BASH:</b><code>%s</code>", result))
+                m.Delete()
+		_, err = msg.Respond(fmt.Sprintf("<b>Shell:</b> <code>%s</code>\n<b>Result:</b> <code>%s</code>", m.Args(), result))
 	}
 	return err
 }
