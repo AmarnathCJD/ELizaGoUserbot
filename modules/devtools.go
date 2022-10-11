@@ -108,7 +108,7 @@ func Shell(m *telegram.NewMessage) error {
 			return err
 		}
                 m.Delete()
-		_, err = msg.Respond(fmt.Sprintf("<b>Shell:</b> <code>%s</code>\n<b>Result:</b> <code>%s</code>", m.Args(), result))
+		_, err = msg.Respond(fmt.Sprintf("<b>►Shell:</b>\n<code>%s</code>\n\n<b>►Result:</b>\n<i>%s</i>", m.Args(), result))
 	}
 	return err
 }
